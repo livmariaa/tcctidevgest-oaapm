@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/aluno")
 public class AlunoController {
@@ -21,11 +23,12 @@ public class AlunoController {
     private AlunoRepository alunoRepository;
 
     @GetMapping
-    public String Index(Model model) {
-        model.addAttribute("alunos", alunoRepository.findAll());
+    public String index(Model model) {
+        List<Aluno> listaAlunos = alunoRepository.findAll();
+        model.addAttribute("alunos", listaAlunos);
         return "aluno/index";
-
     }
+
 
     // Carrega o form-inserir.html
     @GetMapping("/form-inserir")
@@ -52,7 +55,8 @@ public class AlunoController {
         return "redirect:/aluno";
     }
 
-    // Formulário de Alteração dos Jogadores
+
+    // Formulário de Alteração dos alunos
     @GetMapping("/form-alterar/{id}")
     public String formAlterar(@PathVariable("id") Long id, Model model){
 

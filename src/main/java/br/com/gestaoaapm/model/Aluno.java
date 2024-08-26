@@ -23,4 +23,5 @@ public class Aluno {
     private String cpf;
     private String endereco;
     private String turma;
+
 }
