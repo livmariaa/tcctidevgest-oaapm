@@ -1,0 +1,21 @@
+.tabela-listagem{
+    padding: 10px;
+}
+
+.dataTables_filter{
+    float: right;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #7E3AF2;
+    border-color: #7E3AF2;
+}
+
+.header-listagem{
+    margin-top: 40px;
+    margin-bottom: 10px;
+
+}
+
