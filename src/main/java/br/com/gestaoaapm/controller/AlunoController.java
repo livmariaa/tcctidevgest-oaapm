@@ -66,7 +66,7 @@ public class AlunoController {
         return "aluno/form-alterar";
     }
 
-    // Método para alterar o jogador
+    // Método para alterar aluno
     @PostMapping("/alterar")
     public String alterar(
             @Valid Aluno aluno,
@@ -75,7 +75,7 @@ public class AlunoController {
 
         // Verifica se há erros de validação
         if(result.hasErrors()){
-            return "cadastros/aluno/form-alterar";
+            return "aluno/form-alterar";
         }
 
         alunoRepository.save(aluno);
