@@ -56,6 +56,11 @@
                                    placeholder="Digite o nome"
                             />
                         </label>
+                        <div class="col-sm-12">
+                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
+                            <span class="mensagem-erro" th:if="${#fields.hasErrors('nome')}"
+                                  th:errors="*{nome}"></span>
+                        </div>
 
                         <br>
 
@@ -66,6 +71,11 @@
                                    placeholder="Digite o email"
                             />
                         </label>
+                        <div class="col-sm-12">
+                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
+                            <span class="mensagem-erro" th:if="${#fields.hasErrors('email')}"
+                                  th:errors="*{email}"></span>
+                        </div>
 
                         <br>
 
@@ -76,6 +86,11 @@
                                    placeholder="Digite o CPF"
                             />
                         </label>
+                        <div class="col-sm-12">
+                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
+                            <span class="mensagem-erro" th:if="${#fields.hasErrors('cpf')}"
+                                  th:errors="*{cpf}"></span>
+                        </div>
 
                         <br>
 
@@ -86,6 +101,11 @@
                                    placeholder="Digite o  endereço"
                             />
                         </label>
+                        <div class="col-sm-12">
+                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
+                            <span class="mensagem-erro" th:if="${#fields.hasErrors('endereco')}"
+                                  th:errors="*{endereco}"></span>
+                        </div>
 
                         <br>
 
@@ -96,6 +116,11 @@
                                    placeholder="Digite o telefone"
                             />
                         </label>
+                        <div class="col-sm-12">
+                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
+                            <span class="mensagem-erro" th:if="${#fields.hasErrors('telefone')}"
+                                  th:errors="*{telefone}"></span>
+                        </div>
                         <br>
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Turma</span>
@@ -104,6 +129,11 @@
                                    placeholder="Digite a turma"
                             />
                         </label>
+                        <div class="col-sm-12">
+                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
+                            <span class="mensagem-erro" th:if="${#fields.hasErrors('turma')}"
+                                  th:errors="*{turma}"></span>
+                        </div>
                         <br>
                         </button>
 
