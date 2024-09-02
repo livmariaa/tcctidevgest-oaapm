@@ -39,8 +39,8 @@ public class AlunoController {
     }
 
     // Método para salvar o jogador
-    @PostMapping("/inserir")
-    public String inserir(
+    @PostMapping("/salvar")
+    public String salvar(
             @Valid Aluno aluno,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
@@ -66,22 +66,6 @@ public class AlunoController {
         return "aluno/form-alterar";
     }
 
-    // Método para alterar aluno
-    @PostMapping("/alterar")
-    public String alterar(
-            @Valid Aluno aluno,
-            BindingResult result,
-            RedirectAttributes redirectAttributes){
-
-        // Verifica se há erros de validação
-        if(result.hasErrors()){
-            return "aluno/form-alterar";
-        }
-
-        alunoRepository.save(aluno);
-        redirectAttributes.addFlashAttribute("mensagem", "Aluno alterado com sucesso!");
-        return "redirect:/aluno";
-    }
 
     // Método para excluir o jogador
     @GetMapping("/excluir/{id}")

@@ -856,7 +856,7 @@
                     <br>
                     <div
                             class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                        <form th:action="@{/aluno/inserir}" th:object="${aluno}" method="post">
+                        <form th:action="@{/aluno/salvar}" th:object="${aluno}" method="post">
                             <label class="block text-sm">
                                 <span class="text-gray-700 dark:text-gray-400">Nome</span>
                                 <input th:field="*{nome}"
