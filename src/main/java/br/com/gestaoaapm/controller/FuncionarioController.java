@@ -54,14 +54,39 @@ public class FuncionarioController {
         return "redirect:/funcionario";
     }
 
-    // Formulário de Alteração dos funcionarios
+    //Formulário de alteração de aluno
     @GetMapping("/form-alterar/{id}")
-    public String formAlterar(@PathVariable("id") Long id, Model model){
+    public String formAlterar(@PathVariable("id") Long id, Model model) {
 
-        Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Funcionário inválido: " + id));
+        // Busca o aluno no banco de dados
+        Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
 
+        // Adiciona o aluno no objeto model para ser alterado
         model.addAttribute("funcionario", funcionario);
+
+        // Retorna o template aluno/alterar.html
         return "funcionario/form-alterar";
+    }
+
+
+     //Método que é invocado ao clicar no botão "Salvar" do template funcionario/form-alterar.html
+    @PostMapping("/alterarSalvar")
+    public String alterar( @Valid Funcionario funcionario,
+                          BindingResult result, RedirectAttributes attributes) {
+
+        // Se houver erro de validação, retorna para o template funcionario/form-alterar.html
+        if (result.hasErrors()) {
+            return "funcionario/form-alterar";
+        }
+
+        funcionarioRepository.save(funcionario);
+
+        // Adiciona uma mensagem que será exibida no template
+        attributes.addFlashAttribute("mensagem",
+                "Funcionário atualizado com sucesso!");
+
+        // Redireciona para a página de listagem de funcionários
+        return "redirect:/funcionario";
     }
 
     // Método para excluir o funcionario

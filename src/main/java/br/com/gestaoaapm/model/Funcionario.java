@@ -31,4 +31,63 @@ public class Funcionario {
     private String cpf;
     private String endereco;
     private String cargo;
+
+
+    //getters and setters
+
+    /*public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotEmpty(message = "O nome deve ser preenchido") String getNome() {
+        return nome;
+    }
+
+    public void setNome(@NotEmpty(message = "O nome deve ser preenchido") String nome) {
+        this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public @NotEmpty(message = "O email deve ser preenchido") @Email(message = "O email deve ser valido") String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotEmpty(message = "O email deve ser preenchido") @Email(message = "O email deve ser valido") String email) {
+        this.email = email;
+    }
+
+    public @CPF(message = "O cpf deve ser valido") String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(@CPF(message = "O cpf deve ser valido") String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }*/
 }

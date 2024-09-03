@@ -1,6 +1,7 @@
 package br.com.gestaoaapm.controller;
 
 import br.com.gestaoaapm.model.Aluno;
+import br.com.gestaoaapm.model.Funcionario;
 import br.com.gestaoaapm.repository.AlunoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +57,39 @@ public class AlunoController {
     }
 
 
-    // Formulário de Alteração dos alunos
+    //Formulário de alteração de aluno
     @GetMapping("/form-alterar/{id}")
-    public String formAlterar(@PathVariable("id") Long id, Model model){
+    public String formAlterar(@PathVariable("id") Long id, Model model) {
 
-        Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Aluno inválido: " + id));
+        // Busca o aluno no banco de dados
+        Aluno aluno = alunoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
 
+        // Adiciona o aluno no objeto model para ser alterado
         model.addAttribute("aluno", aluno);
+
+        // Retorna o template aluno/alterar.html
         return "aluno/form-alterar";
+    }
+
+
+    //Método que é invocado ao clicar no botão "Salvar" do template aluno/form-alterar.html
+    @PostMapping("/alterarSalvar")
+    public String alterar( @Valid Aluno aluno,
+                           BindingResult result, RedirectAttributes attributes) {
+
+        // Se houver erro de validação, retorna para o template aluno/form-alterar.html
+        if (result.hasErrors()) {
+            return "aluno/form-alterar";
+        }
+
+        alunoRepository.save(aluno);
+
+        // Adiciona uma mensagem que será exibida no template
+        attributes.addFlashAttribute("mensagem",
+                "Aluno atualizado com sucesso!");
+
+        // Redireciona para a página de listagem de alunos
+        return "redirect:/aluno";
     }
 
 
