@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" :class="{ 'theme-dark': dark }" x-data="data()" lang="pt">
+<head>
+    <title>Gestão AAPM</title>
+    <div th:replace="~{/fragments/heads.html :: heads}"></div>
+</head>
+<body>
+<div
+        class="flex h-screen bg-gray-50 dark:bg-gray-900"
+        :class="{ 'overflow-hidden': isSideMenuOpen }"
+>
+
+
+
+    <div th:replace="~{/fragments/sidebar.html :: sidebar}"></div>
+
+    <div class="flex flex-col flex-1 w-full">
+        <div th:replace="~{/fragments/header.html :: heads}"></div>
+
+        <main class="h-full overflow-y-auto">
+
+            <div class="container px-6 mx-auto grid">
+                <div class="row header-listagem">
+                    <div
+                            class="text-2xl font-semibold col"
+                    >
+                        Cadastro de Usuários
+                    </div>
+
+                    <!-- Div barra botão novo aluno à direita -->
+                    <div style="text-align: right;" class="col">
+                        <a style="background-color: #7E3AF2;" class="btn btn-success" th:href="@{/usuario/form-inserir}">Adicionar <i
+                                class="fas fa-save"></i></a>
+                    </div>
+                </div>
+
+
+                <!-- New Table -->
+                <div class="w-full overflow-hidden rounded-lg shadow-xs tabela-listagem">
+                    <div class="w-full overflow-x-auto table-responsive">
+                       <table class="w-full whitespace-no-wrap display table table-striped table-hover" id="basic-datatables">
+                            <thead>
+                            <tr
+                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                            >
+                                <th class="px-4 py-3">ID</th>
+                                <th class="px-4 py-3">NOME</th>
+                                <th class="px-4 py-3">EMAIL</th>
+                                <th class="px-4 py-3">AÇÕES</th>
+                            </tr>
+                            </thead>
+                            <tbody
+                                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                            >
+
+
+                            <tr th:if="${usuarios.empty}" class="text-gray-700 dark:text-gray-400">
+                                <td colspan="5" class="px-4 py-3">Nenhum registro encontrado</td>
+                            </tr>
+
+                            <tr th:each="usuario : ${usuarios}"  class="text-gray-700 dark:text-gray-400">
+                                <td style="width: 7%" class="px-4 py-3"><span th:text="${usuario.id}">ID</span></td>
+                                <td class="px-4 py-3"><span th:text="${usuario.nome}">Nome</span></td>
+                                <td class="px-4 py-3"><span th:text="${usuario.cpf}">Telefone</span></td>
+                                <td class="px-4 py-3"><span th:text="${usuario.email}">Email</span></td>
+                                <td class="text-center px-4 py-3" style="width: 7%">
+                                    <a th:href="@{/usuario/form-alterar/{id}(id=${usuario.id})}" class="edit" data-toggle="modal">
+                                        <i class="fa fa-edit" data-toggle="tooltip" title="Alterar"></i>
+                                    </a>
+                                    <a th:href="@{/usuario/excluir/{id}(id=${usuario.id})}"
+                                       th:data-confirm-delete="|Você gostaria de apagar ${usuario.nome}?|"
+                                       onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+
+                                       id="alertDelete"
+                                       class="delete">
+                                        <i class="fa-solid fa-trash" style="margin-left: 10px;" data-toggle="tooltip" title="Excluir"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+          </div>
+        </main>
+    </div>
+</div>
+<div th:replace="~{/fragments/datatables.html :: datatables}"></div>
+</body>
+</html>
