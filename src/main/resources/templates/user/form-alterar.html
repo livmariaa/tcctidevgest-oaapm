@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Alterar alunos</title>
+    <title>Cadastrar usuários</title>
     <div th:replace="~{/fragments/heads.html :: heads}"></div>
+
 </head>
 <body>
 <div
@@ -22,7 +23,7 @@
                 <!-- CTA -->
                 <a
                         class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-                        href="/aluno"
+                        href="/usuario"
                 >
                     <div class="flex items-center">
                         <svg
@@ -34,34 +35,29 @@
                                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                             ></path>
                         </svg>
-                        <span>Alterar aluno</span>
+                        <span>Cadastro de usuários</span>
                     </div>
-                    <span>Acessar listagem de alunos</span>
+                    <span>Acessar listagem de usuários</span>
                 </a>
 
                 <!-- General elements -->
                 <h4
                         class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
                 >
-                    Modificar informações
+                    Adicionar usuário
                 </h4>
                 <br>
                 <div
                         class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <form th:action="@{/aluno/alterarSalvar}" th:object="${aluno}" method="post">
-                        <input type="hidden" th:field="*{id}"/>
+                    <form th:action="@{/usuario/salvar}" enctype="multipart/form-data" th:object="${usuario}" method="post">
+                        <input type="hidden" th:field="*{id}">
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Nome</span>
-                            <input th:field="*{nome}"
+                            <input th:field="*{firstName}"
                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                    placeholder="Digite o nome"
                             />
                         </label>
-                        <div class="col-sm-12">
-                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
-                            <span class="mensagem-erro" th:if="${#fields.hasErrors('nome')}"
-                                  th:errors="*{nome}"></span>
-                        </div>
 
                         <br>
 
@@ -72,80 +68,49 @@
                                    placeholder="Digite o email"
                             />
                         </label>
-                        <div class="col-sm-12">
-                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
-                            <span class="mensagem-erro" th:if="${#fields.hasErrors('email')}"
-                                  th:errors="*{email}"></span>
-                        </div>
 
                         <br>
 
                         <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">CPF</span>
-                            <input th:field="*{cpf}"
+                            <span class="text-gray-700 dark:text-gray-400">Nome de usuário</span>
+                            <input th:field="*{username}"
                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                   placeholder="Digite o CPF"
+                                   placeholder="Digite o nome de usuário"
                             />
                         </label>
-                        <div class="col-sm-12">
-                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
-                            <span class="mensagem-erro" th:if="${#fields.hasErrors('cpf')}"
-                                  th:errors="*{cpf}"></span>
-                        </div>
-
-                        <br>
 
                         <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Endereço</span>
-                            <input th:field="*{endereco}"
+                            <span class="text-gray-700 dark:text-gray-400">Senha</span>
+                            <input type="password" th:field="*{password}"
                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                   placeholder="Digite o  endereço"
+                                   placeholder="Digite a senha"
                             />
                         </label>
-                        <div class="col-sm-12">
-                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
-                            <span class="mensagem-erro" th:if="${#fields.hasErrors('endereco')}"
-                                  th:errors="*{endereco}"></span>
-                        </div>
-
-                        <br>
 
                         <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Telefone</span>
-                            <input th:field="*{telefone}"
+                            <span class="text-gray-700 dark:text-gray-400">Foto</span>
+                            <input type="file"
                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                   placeholder="Digite o telefone"
+                                   placeholder="Digite a senha"
+                                   name="foto"
+                                   accept="image/png, image/jpeg"
+                                   id="foto"
+
                             />
                         </label>
-                        <div class="col-sm-12">
-                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
-                            <span class="mensagem-erro" th:if="${#fields.hasErrors('telefone')}"
-                                  th:errors="*{telefone}"></span>
-                        </div>
-                        <br>
-                        <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Turma</span>
-                            <input th:field="*{turma}"
-                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                   placeholder="Digite a turma"
-                            />
-                        </label>
-                        <div class="col-sm-12">
-                            <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
-                            <span class="mensagem-erro" th:if="${#fields.hasErrors('turma')}"
-                                  th:errors="*{turma}"></span>
-                        </div>
                         <br>
                         </button>
 
-                </div>
-                <br>
-                <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;" type="submit" value="Salvar">
-                </label>
+
+                    </div>
+                    <br>
+                    <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
+                           type="submit" value="Salvar">
+                </form>
+
             </div>
         </main>
     </div>
-    </form>
     </main>
 </div>
 </div>
