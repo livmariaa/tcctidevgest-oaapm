@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers(new AntPathRequestMatcher("/**"))
+                //.requestMatchers(new AntPathRequestMatcher("/**"))
                 //.requestMatchers(new AntPathRequestMatcher("/usuario/**"))
                 .requestMatchers(new AntPathRequestMatcher("/assets/**"));
 
@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .userDetailsService(userService)
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/")
                         .permitAll()
                 )
                 .logout((logout) -> logout

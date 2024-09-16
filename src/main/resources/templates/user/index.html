@@ -60,15 +60,14 @@
 
                             <tr th:each="usuario : ${usuarios}"  class="text-gray-700 dark:text-gray-400">
                                 <td style="width: 7%" class="px-4 py-3"><span th:text="${usuario.id}">ID</span></td>
-                                <td class="px-4 py-3"><span th:text="${usuario.nome}">Nome</span></td>
-                                <td class="px-4 py-3"><span th:text="${usuario.cpf}">Telefone</span></td>
+                                <td class="px-4 py-3"><span th:text="${usuario.firstName}">Nome</span></td>
                                 <td class="px-4 py-3"><span th:text="${usuario.email}">Email</span></td>
                                 <td class="text-center px-4 py-3" style="width: 7%">
                                     <a th:href="@{/usuario/form-alterar/{id}(id=${usuario.id})}" class="edit" data-toggle="modal">
                                         <i class="fa fa-edit" data-toggle="tooltip" title="Alterar"></i>
                                     </a>
                                     <a th:href="@{/usuario/excluir/{id}(id=${usuario.id})}"
-                                       th:data-confirm-delete="|Você gostaria de apagar ${usuario.nome}?|"
+                                       th:data-confirm-delete="|Você gostaria de apagar ${usuario.firstName}?|"
                                        onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
 
                                        id="alertDelete"
