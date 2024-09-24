@@ -1,8 +1,6 @@
 package br.com.gestaoaapm.controller;
 
-import br.com.gestaoaapm.model.Aluno;
 import br.com.gestaoaapm.model.Produto;
-import br.com.gestaoaapm.repository.AlunoRepository;
 import br.com.gestaoaapm.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
