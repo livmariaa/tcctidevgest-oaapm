@@ -118,8 +118,9 @@
                             <span class="mensagem-erro" th:if="${#fields.hasErrors('telefone')}"
                                   th:errors="*{telefone}"></span>
                         </div>
-                        <br>
 
+
+                        <br>
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Cargo</span>
                             <input th:field="*{cargo}"
@@ -127,14 +128,13 @@
                                    placeholder="Digite o cargo"
                             />
                         </label>
+
                         <div class="col-sm-12">
                             <!-- Mensagem de erro caso o campo nome tenha algum erro de validação -->
                             <span class="mensagem-erro" th:if="${#fields.hasErrors('cargo')}"
                                   th:errors="*{cargo}"></span>
                         </div>
                         <br>
-
-
                         </button>
 
 

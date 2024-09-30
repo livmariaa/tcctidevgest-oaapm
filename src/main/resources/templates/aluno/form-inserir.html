@@ -50,6 +50,7 @@
                 <div
                         class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
                     <form th:action="@{/aluno/salvar}" th:object="${aluno}" method="post">
+
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Nome</span>
                             <input th:field="*{nome}"
@@ -79,7 +80,6 @@
                         </label>
 
                         <br>
-
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Endereço</span>
                             <input th:field="*{endereco}"
@@ -89,7 +89,6 @@
                         </label>
 
                         <br>
-
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Telefone</span>
                             <input th:field="*{telefone}"
@@ -97,8 +96,8 @@
                                    placeholder="Digite o telefone"
                             />
                         </label>
-
                         <br>
+
 
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Turma</span>
@@ -110,11 +109,12 @@
                         <br>
                         </button>
 
-                    </form>
-                    </div>
-                    <br>
-                    <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
-                           type="submit" value="Salvar">
+
+                </div>
+                <br>
+                <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
+                       type="submit" value="Salvar">
+                </form>
 
 
                 </label>
