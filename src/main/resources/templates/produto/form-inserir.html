@@ -70,25 +70,39 @@
                             />
                         </label>
 
-                        <br>
 
-                        <label class="block text-sm">
+
+                        <br>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select name="status" id="status" class="col-sm-12">
+                                    <option value="">Selecione</option>
+                                    <option th:each="status : ${T(br.com.gestaoaapm.enums.EnumStatus).values()}"
+                                            th:value="${status}"
+                                            th:text="${status.status}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                     <!--   <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Status</span>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                                 <label class="form-check-label" for="flexSwitchCheckChecked">Disponível</label>
                             </div>
-                        </label>
+                        </label>-->
 
                         <br>
-                        <!--</button>-->
+                        </button>
 
-                    </form>
+
                 </div>
                 <br>
                 <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
                        type="submit" value="Salvar">
-
+                </form>
 
                 </label>
             </div>
