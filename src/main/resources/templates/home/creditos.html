@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Créditos</title>
+    <div th:replace="~{/fragments/heads.html :: heads}"></div>
+
+</head>
+<body>
+<div
+        class="flex h-screen bg-gray-50 dark:bg-gray-900"
+        :class="{ 'overflow-hidden': isSideMenuOpen}"
+>
+    <!-- Desktop sidebar -->
+    <div th:replace="~{/fragments/sidebar.html :: sidebar}"></div>
+    <div class="flex flex-col flex-1">
+        <div th:replace="~{/fragments/header.html :: heads}"></div>
+        <main class="h-full pb-16 overflow-y-auto">
+            <div class="container px-6 mx-auto grid">
+                <h2
+                        class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+                        style="margin-bottom: 0px;"
+                ></h2>
+
+
+
+                <!-- Cards with title -->
+                <h4
+                        class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
+                >
+                    Créditos
+                </h4>
+                <div class="grid gap-6 mb-8 md:grid-cols-2">
+                    <div
+                            class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                    >
+                        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                            Scorpion Sistem
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            A criação deste site foi um esforço colaborativo de uma equipe talentosa e dedicada. Cada membro trouxe suas habilidades únicas para garantir que a experiência do usuário fosse excepcional. Juntos, nós trabalhamos para criar um espaço que não apenas atende às suas necessidades, mas também proporciona uma experiência agradável e envolvente. Agradecemos por visitar nosso site e esperamos que você goste do que fizemos!
+                        </p>
+                    </div>
+
+                    <div
+                            class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                    >
+                        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                            Desenvolvedores
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            Fuga, cum commodi a omnis numquam quod? Totam exercitationem
+                            quos hic ipsam at qui cum numquam, sed amet ratione! Ratione,
+                            nihil dolorum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+            </div>
+        </main>
+    </div>
+    </main>
+</div>
+</div>
+</body>
+</html>

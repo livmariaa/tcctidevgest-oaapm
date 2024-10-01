@@ -13,4 +13,9 @@ public class HomeController {
         return "home/index";
     }
 
+    @GetMapping("/creditos")
+    public String creditos(){
+        return "home/creditos";
+    }
+
 }
