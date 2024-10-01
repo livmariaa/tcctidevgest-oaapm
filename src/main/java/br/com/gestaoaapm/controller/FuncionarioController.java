@@ -69,10 +69,10 @@ public class FuncionarioController {
     }
 
 
-     //Método que é invocado ao clicar no botão "Salvar" do template funcionario/form-alterar.html
+    //Método que é invocado ao clicar no botão "Salvar" do template funcionario/form-alterar.html
     @PostMapping("/alterarSalvar")
     public String alterar( @Valid Funcionario funcionario,
-                          BindingResult result, RedirectAttributes attributes) {
+                           BindingResult result, RedirectAttributes attributes) {
 
         // Se houver erro de validação, retorna para o template funcionario/form-alterar.html
         if (result.hasErrors()) {
