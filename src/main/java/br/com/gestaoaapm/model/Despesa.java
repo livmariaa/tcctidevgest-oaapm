@@ -4,6 +4,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "C")
-public class Receita extends Financeiro{
+@DiscriminatorValue("D")
+public class Despesa extends Financeiro {
 }
