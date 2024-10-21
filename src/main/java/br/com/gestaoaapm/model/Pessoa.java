@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,5 +40,9 @@ public class Pessoa {
     @CPF(message = "O cpf deve ser válido")
     private String cpf;
     private String endereco;
+
+    // relação onetomany com o model Receita
+    @OneToMany(mappedBy = "pessoa")
+    private List<Receita> receitas;
 }
 

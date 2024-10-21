@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -31,12 +32,10 @@ public class Financeiro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Basic
+    @Basic(optional = false)
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
-
     private String observacao;
-
 
     @ManyToOne
     private Produto produto;
@@ -47,7 +46,5 @@ public class Financeiro {
     private String nomeRecebeu;
 
     private EnumFormaPagamento formaPagamento;
-
-
 
 }

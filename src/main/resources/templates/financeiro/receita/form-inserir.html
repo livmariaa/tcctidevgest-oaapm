@@ -60,6 +60,21 @@
                                    placeholder="Digite a Data de Pagamento"
                             />
                         </label>
+                        <br />
+                        <div class="col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="pessoa" class="text-sm">Comprador</label>
+                                <select th:field="*{pessoa}" id="pessoa" required="required"
+                                        class="col-sm-12 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700"
+                                >
+                                    <option value="">Selecione</option>
+                                    <option th:each="pessoa : ${pessoas}"
+                                            th:value="${pessoa.id}"
+                                            th:text="${pessoa.cpf} + ' - ' + ${pessoa.nome}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
 
                         <br>
 
@@ -72,29 +87,116 @@
                             />
                         </label>
 
-                  <!--      <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Observação</span>
-                            <input
-                                    type="text" th:field="*{observacao}"
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="Digite o preço"
-                            />
-                        </label>-->
-
+                        <!--      <label class="block text-sm">
+                                  <span class="text-gray-700 dark:text-gray-400">Observação</span>
+                                  <input
+                                          type="text" th:field="*{observacao}"
+                                          class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                          placeholder="Digite o preço"
+                                  />
+                              </label>-->
 
 
                         <br>
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
-                                <label for="status">Forma de Pagamento</label>
-                                <select name="status" id="status" class="col-sm-12">
+                                <label for="formaPagamento" class="text-gray-700 dark:text-gray-400">Forma de Pagamento</label>
+                                <select th:field="*{formaPagamento}" id="formaPagamento" required="required"
+                                        class="col-sm-12 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-select"
+                                >
                                     <option value="">Selecione</option>
                                     <option th:each="formaPagamento : ${T(br.com.gestaoaapm.enums.EnumFormaPagamento).values()}"
                                             th:value="${formaPagamento}"
-                                            th:text="${formaPagamento.formaPagamento}">
+                                            th:text="${formaPagamento.descricao}">
                                     </option>
                                 </select>
                             </div>
+                        </div>
+
+
+                        <br/>
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <!--Row com tabela dinâmica de turma-->
+                        <div class="row" style="margin-left: 20px">
+                            <div class="card-header dynamic-update-rows-produto">
+                                Produtos:
+
+                                <button
+                                        type="button"
+                                        name="addProduto"
+                                        class="btn btn-sm btn-success"
+                                        data-dynamic-update-rows-url-produto="/financeiro/receita/add-produto"
+                                >
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <br/>
+                            <br/>
+
+                            <div class="card-body border-0">
+
+                                <table class="table dynamic-update-rows-produto" style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Produto</th>
+                                        <th>Valor Unitário</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <!--Total-->
+                                    <tr>
+                                        <td colspan="2" style="text-align: right">Total</td>
+                                        <td id="total">0.0</td>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody id="dynamicTableContentsProduto">
+                                    <tr th:fragment="produtos"
+                                        th:each="produto,rowStat : ${receita.produtos}">
+
+                                        <td th:text="${rowStat.count}">1</td>
+                                        <td>
+
+                                            <!-- Dropdown de turmas  que funcione no javascript-->
+                                            <select class="form-control form-control-sm select-produtos"
+                                                    th:field="${receita.produtos[__${rowStat.index}__].id}"
+                                            >
+                                                <option selected="selected" readonly value="">Selecione o produto
+                                                </option>
+                                                <option th:each="produtobd : ${produtosbd}"
+                                                        th:value="${produtobd.id}"
+                                                        th:text="${produtobd.nome}"></option>
+                                            </select>
+                                            <input type="hidden"
+                                                   th:field="${receita.produtos[__${rowStat.index}__].id}">
+                                        </td>
+
+                                        <td>
+                                            <span id="valorUnitario">0.0</span>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="btn-group">
+                                                <button
+                                                        type="button"
+                                                        name="removeDynamicRowProduto"
+                                                        th:value="${rowStat.index}"
+                                                        class="btn btn-sm btn-danger"
+                                                        data-dynamic-update-rows-url-produto="/financeiro/receita/remove-produto"
+                                                >
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/>
                         </div>
 
                         <!--   <label class="block text-sm">
@@ -106,21 +208,56 @@
                            </label>-->
 
                         <br>
-                        </button>
-
+                        <br>
+                        <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px; width: 100%"
+                               type="submit" value="Salvar">
+                    </form>
 
                 </div>
-                <br>
-                <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
-                       type="submit" value="Salvar">
-                </form>
-
-                </label>
             </div>
         </main>
     </div>
-    </main>
-</div>
 </div>
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        $('.dynamic-update-rows-produto').on('click', 'button[data-dynamic-update-rows-url-produto]', function () {
+
+            if ($("#dataPagamento").val() == "") {
+                alert("Preencha a data de pagamento");
+                $("#dataPagamento").focus();
+                return;
+            }
+
+            let urlProduto = $(this).attr('data-dynamic-update-rows-url-produto');
+
+
+            let formDataProduto = $('form').serializeArray();
+            let param = {};
+            param["name"] = $(this).attr('name');
+            param["value"] = $(this).val();
+            formDataProduto.push(param);
+
+
+            // Atualiaza a seção dinâmica
+            $('#dynamicTableContentsProduto').load(urlProduto, formDataProduto);
+
+        });
+
+    })
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#pessoa').select2();
+        $('#formaPagamento').select2();
+        $('.select-produtos').select2();
+    });
+
+
+
+</script>

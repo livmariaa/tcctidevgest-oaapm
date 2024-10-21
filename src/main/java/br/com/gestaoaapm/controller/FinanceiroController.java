@@ -1,34 +1,35 @@
 package br.com.gestaoaapm.controller;
 
 import br.com.gestaoaapm.model.Despesa;
+import br.com.gestaoaapm.model.Produto;
 import br.com.gestaoaapm.model.Receita;
-import br.com.gestaoaapm.repository.AlunoRepository;
 import br.com.gestaoaapm.repository.DespesaRepository;
+import br.com.gestaoaapm.repository.PessoaRepository;
+import br.com.gestaoaapm.repository.ProdutoRepository;
 import br.com.gestaoaapm.repository.ReceitaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/financeiro")
-
 public class FinanceiroController {
 
     @Autowired
-    private AlunoRepository alunoRepository;
+    private PessoaRepository pessoaRepository;
 
     @Autowired
     private ReceitaRepository receitaRepository;
 
     @Autowired
     private DespesaRepository despesaRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
 
 
@@ -48,14 +49,13 @@ public class FinanceiroController {
     // Carrega o form-inserir.html
     @GetMapping("/receita/form-inserir")
     public String receitaFormInserir(Model model) {
-
+        model.addAttribute("pessoas", pessoaRepository.findAll());
         model.addAttribute("receita", new Receita());
         return "financeiro/receita/form-inserir";
     }
 
     @GetMapping("/despesa/form-inserir")
     public String despesaFormInserir(Model model) {
-
         model.addAttribute("despesa", new Despesa());
         return "financeiro/despesa/form-inserir";
     }
@@ -154,7 +154,52 @@ public class FinanceiroController {
         return "redirect:/financeiro/despesa";
     }
 
+    // método para adicionar produtos em uma receita
+    @PostMapping("/receita/add-produto")
+    public String addProduto(Receita receita, Model model) {
+
+        model.addAttribute("produtosbd", produtoRepository.findAll());
+        receita.addProduto(new Produto());
+
+        return "financeiro/receita/form-inserir :: produtos";
+    }
+
+    // método para remover produtos em uma receita
+    @PostMapping("/receita/remove-produto")
+    public String removeProduto(Receita receita, @RequestParam("removeDynamicRowProduto") Integer produtoIndex, Model model) {
+
+        model.addAttribute("produtosbd", produtoRepository.findAll());
+
+        receita.getProdutos().remove(produtoIndex.intValue());
+
+        return "financeiro/receita/form-inserir :: produtos";
+    }
+
+    /*
+    $(document).on('change', '.select-produtos', function () {
+        let idProduto = $(this).val();
+        let linha = $(this).closest('tr');
+        let valorUnitario = linha.find('#valorUnitario');
+        let totalLinha = linha.find('#totalLinha');
+        $.ajax({
+            url: '/financeiro/receita/valor-unitario',
+            type: 'GET',
+            data: {idProduto: idProduto},
+            success: function (data) {
+                valorUnitario.text(data);
+                totalLinha.text(data);
+            }
+        });
+    });
+
+
+
+     */
+
+    @GetMapping("/receita/valor-unitario")
+    @ResponseBody
+    public Double valorUnitario(@RequestParam("idProduto") Long idProduto) {
+        Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
+        return produto.getPreco();
+    }
 }
-
-
-
