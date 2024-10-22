@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -37,8 +37,7 @@ public class Financeiro {
     private Date dataPagamento;
     private String observacao;
 
-    @ManyToOne
-    private Produto produto;
+
 
     @ManyToOne
     private Pessoa nomePagou;

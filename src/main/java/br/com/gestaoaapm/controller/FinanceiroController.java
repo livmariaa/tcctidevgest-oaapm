@@ -102,9 +102,24 @@ public class FinanceiroController {
         }
 
         receitaRepository.save(receita);
+
+        // Verifica se os produtos foram selecionados
+        if (!receita.getProdutos().isEmpty()) {
+            // Percorre a lista de produtos selecionados
+            for (Produto produto : receita.getProdutos()) {
+                // Busca o produto no banco de dados
+                Produto produtoBanco = produtoRepository.findById(produto.getId()).orElseThrow(()
+                        -> new IllegalArgumentException("ID inválido"));
+                // Adiciona o produto na receita
+                receita.addProduto(produtoBanco);
+            }
+        }
+
+
         redirectAttributes.addFlashAttribute("mensagem", "Receita salva com sucesso!");
         return "redirect:/financeiro/receita";
     }
+
 
     // Salvar a despesa
     @PostMapping("/despesa/salvar")
