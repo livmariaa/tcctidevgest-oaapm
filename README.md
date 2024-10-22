@@ -6,7 +6,14 @@ Este é um Guia de utilização do projeto "Gestão AAPM"
 
 - facilitar a visibilidade de informações
 - Diminuir erros envolvidos
-- 
+
+## Recursos para rodar a aplicação
+
+- Servidor estável e com armazenamento suficiente
+- Internet boa
+- Intelj
+
+  
 
 ## Instalação
 
