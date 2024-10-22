@@ -18,6 +18,5 @@ Este é um Guia de utilização do projeto "Gestão AAPM"
 
 Para instalar este projeto, siga os passos abaixo:
 
-1. Clone o repositório em um prompt Git:
-   ```bash
-   https://github.com/livmariaa/tcctidevgest-oaapm.git
+1. Clique no botão verde no canto superior direito
+2. 
