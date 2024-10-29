@@ -70,6 +70,11 @@ public class FinanceiroController {
         // Adiciona o aluno no objeto model para ser alterado
         model.addAttribute("receita", receita);
 
+        model.addAttribute("pessoas", pessoaRepository.findAll());
+
+        // Adiciona a lista de produtos no objeto model
+        model.addAttribute("produtosbd", produtoRepository.findAll());
+
         // Retorna o template aluno/alterar.html
         return "financeiro/receita/form-alterar";
     }
@@ -101,8 +106,9 @@ public class FinanceiroController {
             return "financeiro/receita/form-inserir";
         }
 
-        receitaRepository.save(receita);
 
+
+        int i = 0;
         // Verifica se os produtos foram selecionados
         if (!receita.getProdutos().isEmpty()) {
             // Percorre a lista de produtos selecionados
@@ -111,15 +117,20 @@ public class FinanceiroController {
                 Produto produtoBanco = produtoRepository.findById(produto.getId()).orElseThrow(()
                         -> new IllegalArgumentException("ID inválido"));
                 // Adiciona o produto na receita
-                receita.addProduto(produtoBanco);
+                produtoBanco.addReceita(receita);
+
+                // Adiciona o produto na lista de produtos da receita
+                receita.getProdutos().set(i, produtoBanco);
+                i++;
             }
         }
+
+        receitaRepository.save(receita);
 
 
         redirectAttributes.addFlashAttribute("mensagem", "Receita salva com sucesso!");
         return "redirect:/financeiro/receita";
     }
-
 
     // Salvar a despesa
     @PostMapping("/despesa/salvar")
@@ -134,6 +145,7 @@ public class FinanceiroController {
         }
 
         despesaRepository.save(despesa);
+
         redirectAttributes.addFlashAttribute("mensagem", "Despesa salva com sucesso!");
         return "redirect:/financeiro/despesa";
     }

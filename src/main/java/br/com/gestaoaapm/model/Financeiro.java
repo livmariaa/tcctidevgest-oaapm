@@ -37,6 +37,8 @@ public class Financeiro {
     private Date dataPagamento;
     private String observacao;
 
+    //@ManyToOne
+    //private Produto produto;
 
 
     @ManyToOne

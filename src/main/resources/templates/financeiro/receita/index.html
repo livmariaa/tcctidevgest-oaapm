@@ -45,8 +45,9 @@
                             >
                                 <th class="px-4 py-3">ID</th>
                                 <th class="px-4 py-3">DATA DE PAGAMENTO</th>
-                                <th class="px-4 py-3">OBSERVAÇÃO</th>
+                                <th class="px-4 py-3">COMPRADOR</th>
                                 <th class="px-4 py-3">FORMA DE PAGAMENTO</th>
+                                <th class="px-4 py-3">OBSERVAÇÃO</th>
                                 <th class="px-4 py-3">AÇÕES</th>
                             </tr>
                             </thead>
@@ -62,7 +63,7 @@
                             <tr th:each="receita : ${receitas}"  class="text-gray-700 dark:text-gray-400">
                                 <td style="width: 7%" class="px-4 py-3"><span th:text="${receita.id}">ID</span></td>
                                 <td class="px-4 py-3"><span th:text="${#dates.format(receita.dataPagamento, 'dd/MM/yyyy')}">Data</span></td>
-                                <td class="px-4 py-3"><span th:text="${receita.nomePagou}">Comprador</span></td>
+                                <td class="px-4 py-3"><span th:text="${receita.pessoa.nome}">Comprador</span></td>
                                 <td class="px-4 py-3"><span th:text="${receita.formaPagamento}">Forma de Pagamento</span></td>
                                 <td class="px-4 py-3"><span th:text="${receita.observacao}">Observações</span></td>
                                 <td class="text-center px-4 py-3" style="width: 7%">
@@ -70,7 +71,7 @@
                                         <i class="fa fa-edit" data-toggle="tooltip" title="Alterar"></i>
                                     </a>
                                     <a th:href="@{/financeiro/receita/excluir/{id}(id=${receita.id})}"
-                                       th:data-confirm-delete="|Você gostaria de apagar ${receita.descricao}?|"
+                                       th:data-confirm-delete="|Você gostaria de apagar ${receita.observacao}?|"
                                        onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
 
                                        id="alertDelete"

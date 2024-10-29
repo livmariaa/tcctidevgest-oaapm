@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class Receita extends Financeiro{
     private Pessoa pessoa;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "receitas")
-    private ArrayList<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos = new ArrayList<>();
 
     // método para adicionar um produto na lista de produtos
     public void addProduto(Produto produto){

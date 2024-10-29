@@ -34,4 +34,9 @@ public class Produto {
     )
     private List<Receita> receitas;
 
+    // método para adicionar uma receita na lista de receitas
+    public void addReceita(Receita receita){
+        this.receitas.add(receita);
+    }
+
 }
