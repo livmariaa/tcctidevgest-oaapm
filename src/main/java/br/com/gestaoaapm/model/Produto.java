@@ -25,18 +25,6 @@ public class Produto {
     @NotEmpty(message = "O status deve ser preenchido")
     private String status;
 
-    // relação manytomany com o model Receita
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "produto_receita",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "receita_id")
-    )
-    private List<Receita> receitas;
-
-    // método para adicionar uma receita na lista de receitas
-    public void addReceita(Receita receita){
-        this.receitas.add(receita);
-    }
 
 }
+

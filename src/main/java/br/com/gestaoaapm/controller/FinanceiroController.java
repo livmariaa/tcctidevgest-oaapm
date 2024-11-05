@@ -7,6 +7,7 @@ import br.com.gestaoaapm.repository.DespesaRepository;
 import br.com.gestaoaapm.repository.PessoaRepository;
 import br.com.gestaoaapm.repository.ProdutoRepository;
 import br.com.gestaoaapm.repository.ReceitaRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/financeiro")
@@ -60,12 +63,13 @@ public class FinanceiroController {
         return "financeiro/despesa/form-inserir";
     }
 
-    // despesa/form-alterar.html
+    // despesa/form-alterar.html e passa a sessão
     @GetMapping("/receita/form-alterar/{id}")
     public String receitaFormAlterar(@PathVariable("id") Long id, Model model) {
 
         // Busca o aluno no banco de dados
         Receita receita = receitaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
+
 
         // Adiciona o aluno no objeto model para ser alterado
         model.addAttribute("receita", receita);
@@ -85,6 +89,8 @@ public class FinanceiroController {
 
         // Busca o aluno no banco de dados
         Despesa despesa = despesaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
+
+
 
         // Adiciona o aluno no objeto model para ser alterado
         model.addAttribute("despesa", despesa);
@@ -106,20 +112,17 @@ public class FinanceiroController {
             return "financeiro/receita/form-inserir";
         }
 
+        // Pega os produtos da receita da sessão
+
+
 
 
         int i = 0;
         // Verifica se os produtos foram selecionados
-        if (!receita.getProdutos().isEmpty()) {
-            // Percorre a lista de produtos selecionados
+        if(!receita.getProdutos().isEmpty()){
             for (Produto produto : receita.getProdutos()) {
-                // Busca o produto no banco de dados
                 Produto produtoBanco = produtoRepository.findById(produto.getId()).orElseThrow(()
                         -> new IllegalArgumentException("ID inválido"));
-                // Adiciona o produto na receita
-                produtoBanco.addReceita(receita);
-
-                // Adiciona o produto na lista de produtos da receita
                 receita.getProdutos().set(i, produtoBanco);
                 i++;
             }
@@ -131,6 +134,8 @@ public class FinanceiroController {
         redirectAttributes.addFlashAttribute("mensagem", "Receita salva com sucesso!");
         return "redirect:/financeiro/receita";
     }
+
+
 
     // Salvar a despesa
     @PostMapping("/despesa/salvar")
@@ -202,26 +207,7 @@ public class FinanceiroController {
         return "financeiro/receita/form-inserir :: produtos";
     }
 
-    /*
-    $(document).on('change', '.select-produtos', function () {
-        let idProduto = $(this).val();
-        let linha = $(this).closest('tr');
-        let valorUnitario = linha.find('#valorUnitario');
-        let totalLinha = linha.find('#totalLinha');
-        $.ajax({
-            url: '/financeiro/receita/valor-unitario',
-            type: 'GET',
-            data: {idProduto: idProduto},
-            success: function (data) {
-                valorUnitario.text(data);
-                totalLinha.text(data);
-            }
-        });
-    });
 
-
-
-     */
 
     @GetMapping("/receita/valor-unitario")
     @ResponseBody

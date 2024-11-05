@@ -19,7 +19,13 @@ public class Receita extends Financeiro{
     @ManyToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "receitas")
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "produto_receita",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "receita_id")
+    )
     private List<Produto> produtos = new ArrayList<>();
 
     // método para adicionar um produto na lista de produtos

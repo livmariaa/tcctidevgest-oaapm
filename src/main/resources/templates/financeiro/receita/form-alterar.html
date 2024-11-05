@@ -50,7 +50,8 @@
                 <div
                         class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
-                    <form th:action="@{/financeiro/receita/alterarSalvar}" th:object="${receita}" method="post">
+                    <form th:action="@{/financeiro/receita/salvar}" th:object="${receita}" method="post">
+                        <input type="hidden" th:field="*{id}">
 
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Data de Pagamento</span>
