@@ -19,4 +19,6 @@ Este é um Guia de utilização do projeto "Gestão AAPM"
 Para instalar este projeto, siga os passos abaixo:
 
 1. Clique no botão verde no canto superior direito
-2. 
+
+![image](https://github.com/user-attachments/assets/be673591-61f6-4567-a823-5d83395ef8bf)
+
