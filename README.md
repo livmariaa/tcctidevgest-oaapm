@@ -28,5 +28,12 @@ Para instalar este projeto, siga os passos abaixo:
 
 ![image](https://github.com/user-attachments/assets/bec37f14-b5b3-4e19-b0bc-70387162622a)
 
+3. Escolha uma pasta para extrair o arquivo.
+   
+5. extraia o projeto na pasta escolhida clicando "Extrair aqui" 
+ ![image](https://github.com/user-attachments/assets/6c19b6f9-5d31-4bc5-9c05-cefea735474c)
+
+
+
 
 
