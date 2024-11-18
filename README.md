@@ -24,8 +24,9 @@ Para instalar este projeto, siga os passos abaixo:
 
 
 
-2. Clique no botão verde no canto superior direito
+2. Clique na opção "Dowload zip"
 
-![image](https://github.com/user-attachments/assets/23de4954-5176-4a6e-ade5-19478cabd435)
+![image](https://github.com/user-attachments/assets/bec37f14-b5b3-4e19-b0bc-70387162622a)
+
 
 
