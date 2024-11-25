@@ -7,7 +7,6 @@ import br.com.gestaoaapm.repository.DespesaRepository;
 import br.com.gestaoaapm.repository.PessoaRepository;
 import br.com.gestaoaapm.repository.ProdutoRepository;
 import br.com.gestaoaapm.repository.ReceitaRepository;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/financeiro")
@@ -118,14 +115,21 @@ public class FinanceiroController {
 
 
         int i = 0;
+        Double valorReceita = 0.0;
         // Verifica se os produtos foram selecionados
         if(!receita.getProdutos().isEmpty()){
             for (Produto produto : receita.getProdutos()) {
                 Produto produtoBanco = produtoRepository.findById(produto.getId()).orElseThrow(()
                         -> new IllegalArgumentException("ID inválido"));
                 receita.getProdutos().set(i, produtoBanco);
+
+                // Soma valorReceita
+                valorReceita += produtoBanco.getPreco();
+
                 i++;
             }
+
+            receita.setValorReceita(valorReceita);
         }
 
         receitaRepository.save(receita);
@@ -215,4 +219,9 @@ public class FinanceiroController {
         Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
         return produto.getPreco();
     }
+
+
+
+
+
 }

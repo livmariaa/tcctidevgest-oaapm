@@ -61,7 +61,7 @@
                                    placeholder="Digite a Data de Pagamento"
                             />
                         </label>
-                        <br/>
+                        <br />
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label for="pessoa" class="text-sm">Comprador</label>
@@ -101,8 +101,7 @@
                         <br>
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
-                                <label for="formaPagamento" class="text-gray-700 dark:text-gray-400">Forma de
-                                    Pagamento</label>
+                                <label for="formaPagamento" class="text-gray-700 dark:text-gray-400">Forma de Pagamento</label>
                                 <select th:field="*{formaPagamento}" id="formaPagamento" required="required"
                                         class="col-sm-12 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-select"
                                 >
@@ -121,21 +120,11 @@
                         <hr/>
                         <br/>
                         <!--Row com tabela dinâmica de turma-->
-
-                        <script>
-                            // função para exibir o valor unitário do produto
-                            function exibirValorUnitario(idProduto, elemento) {
-                                $.get('/financeiro/receita/valor-unitario', {idProduto: idProduto}, function (data) {
-                                    elemento.value = 'R$ ' + data.toFixed(2).toString().replace('.', ',');
-                                });
-                            }
-                        </script>
                         <div class="row" style="margin-left: 20px">
                             <div class="card-header dynamic-update-rows-produto">
                                 Produtos:
 
                                 <button
-                                        id="idAddProduto"
                                         type="button"
                                         name="addProduto"
                                         class="btn btn-sm btn-success"
@@ -175,8 +164,7 @@
                                         <td>
 
                                             <!-- Dropdown de turmas  que funcione no javascript-->
-                                            <select class="form-control form-control-sm select-produtos"
-                                                    th:onchange="'exibirValorUnitario(' + this.value + ', valorUnitario_' + ${rowStat.index} + ')'"
+                                            <select class="form-control form-control-sm select-produtos" th:onchange="alteraInputValorUnitario(this.value)"
                                                     th:field="${receita.produtos[__${rowStat.index}__].id}"
                                             >
                                                 <option selected="selected" readonly value="">Selecione o produto
@@ -188,12 +176,11 @@
 
                                                 ></option>
                                             </select>
+
                                         </td>
 
                                         <td>
-                                            <input type="text" class="valorUnitario"
-                                                   th:id="'valorUnitario_' + ${rowStat.index}"
-                                                   th:field="${receita.produtos[__${rowStat.index}__].preco}" readonly />
+                                            <input type="text" class="valorUnitario" value="R$ 0,00" th:id="'valorUnitario_' + ${rowStat.index}" readonly >
                                         </td>
 
 
@@ -254,19 +241,19 @@
 
             let formDataProduto = $('form').serializeArray();
             let param = {};
-            param["id"] = $(this).attr('id');
             param["name"] = $(this).attr('name');
             param["value"] = $(this).val();
-
-
             formDataProduto.push(param);
+
+            // mantem o combo de produtos selecionado
+            let idProduto = $('#dynamicTableContentsProduto').find('select').val();
+            formDataProduto.push({name: 'idProduto', value: idProduto});
+
 
             // Atualiaza a seção dinâmica
             $('#dynamicTableContentsProduto').load(urlProduto, formDataProduto);
 
-
         });
-
 
     })
 </script>
@@ -281,30 +268,35 @@
     });
 </script>
 
-
+<!--
+Calcula o valor selecionado e o total recuperando o valor unitário do produto pelo método abaixo:
+@GetMapping("/receita/valor-unitario")
+    @ResponseBody
+    public Double valorUnitario(@RequestParam("idProduto") Long idProduto) {
+        Produto produto = produtoRepository.findById(idProduto).orElseThrow(() -> new IllegalArgumentException("ID inválido"));
+        return produto.getPreco();
+    }
+-->
 <script>
-    // função para exibir o valor unitário do produto
-    function exibirValorUnitario(idProduto, elemento) {
+    function alteraInputValorUnitario(idProduto) {
+        // atualiza o atributo id e name do input para valorUnitario_ concoatenado com o id do produto
+
+
+        // recupera o valor unitário do produto
         $.get('/financeiro/receita/valor-unitario', {idProduto: idProduto}, function (data) {
-            let valorUnitarioFormatado = data.toFixed(2).toString().replace('.', ',');
-            elemento.value = valorUnitarioFormatado;
-            calculaTotal();
+            $('#valorUnitario_' + idProduto).val(data);
         });
+
+        calculaTotal();
+
     }
 
-    // calcula o total
     function calculaTotal() {
         let total = 0;
         $('.valorUnitario').each(function () {
-            total += parseFloat($(this).val());
+            total += parseFloat($(this).val().replace('R$ ', '').replace(',', '.'));
         });
-
-        total = total.toFixed(2).toString().replace('.', ',');
-
-        $('#total').val(total);
+        $('#total').val('R$ ' + total.toFixed(2).toString().replace('.', ','));
     }
 
-    calculaTotal();
-
 </script>
-
