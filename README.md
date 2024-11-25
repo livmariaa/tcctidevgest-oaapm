@@ -36,7 +36,8 @@ Para instalar este projeto, siga os passos abaixo:
 6.  Abra o Intelj
    
 7. Clique "open" para abrir seu projeto descompactado
-![image](https://github.com/user-attachments/assets/efb6d3f2-dd05-4015-abb5-f6d9df758352)
+![image](https://github.com/user-attachments/assets/bfe4b58e-5672-4f0f-a136-e98c25e4ce61)
+
 
 8.
 
