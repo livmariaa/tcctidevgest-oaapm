@@ -33,6 +33,12 @@ Para instalar este projeto, siga os passos abaixo:
 5. extraia o projeto na pasta escolhida clicando "Extrair aqui" 
  ![image](https://github.com/user-attachments/assets/6c19b6f9-5d31-4bc5-9c05-cefea735474c)
 
+6.  Abra o Intelj
+   
+7. Clique "open" para abrir seu projeto descompactado
+![image](https://github.com/user-attachments/assets/efb6d3f2-dd05-4015-abb5-f6d9df758352)
+
+8.
 
 
 
