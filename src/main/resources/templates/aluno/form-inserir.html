@@ -10,6 +10,7 @@
         class="flex h-screen bg-gray-50 dark:bg-gray-900"
         :class="{ 'overflow-hidden': isSideMenuOpen}"
 >
+
     <!-- Desktop sidebar -->
     <div th:replace="~{/fragments/sidebar.html :: sidebar}"></div>
     <div class="flex flex-col flex-1">
@@ -98,31 +99,31 @@
                         </label>
                         <br>
 
+                        <div class="col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label for="turma" class="text-sm">Turma</label>
+                                <select th:field="*{turma}" id="turma" required="required"
+                                        class="col-sm-12 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700"
+                                >
+                                    <option value="">Selecione</option>
+                                    <option th:each="turma : ${turmas}"
+                                            th:value="${turma.id}"
+                                            th:text="${turma.nome}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <label class="block text-sm">
-                            <span class="text-gray-700 dark:text-gray-400">Turma</span>
-                            <input th:field="*{turma}"
-                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                   placeholder="Digite a turma"
-                            />
-                        </label>
                         <br>
-                        </button>
-
-
+                        <input style="background-color: #7E3AF2; width: 100%;    border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
+                               type="submit" value="Salvar" />
+                    </form>
                 </div>
                 <br>
-                <input style="background-color: #7E3AF2; border-color: #7E3AF2; color: white; height: 40px; border-radius: 7px;"
-                       type="submit" value="Salvar">
-                </form>
 
-
-                </label>
             </div>
         </main>
     </div>
-    </main>
-</div>
 </div>
 </body>
 </html>

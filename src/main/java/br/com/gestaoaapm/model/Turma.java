@@ -1,13 +1,13 @@
 package br.com.gestaoaapm.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,4 +23,9 @@ public class Turma {
     private String nome;
 
     private String descricao;
+
+
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
+    private List<Aluno> alunos = new ArrayList<>();
+
 }

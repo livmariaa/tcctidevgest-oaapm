@@ -2,7 +2,9 @@ package br.com.gestaoaapm.controller;
 
 import br.com.gestaoaapm.model.Aluno;
 import br.com.gestaoaapm.model.Funcionario;
+import br.com.gestaoaapm.model.Turma;
 import br.com.gestaoaapm.repository.AlunoRepository;
+import br.com.gestaoaapm.repository.TurmaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,10 @@ public class AlunoController {
     @Autowired
     private AlunoRepository alunoRepository;
 
+    @Autowired
+    private TurmaRepository turmaRepository;
+
+
     @GetMapping
     public String index(Model model) {
         List<Aluno> listaAlunos = alunoRepository.findAll();
@@ -34,7 +40,7 @@ public class AlunoController {
     // Carrega o form-inserir.html
     @GetMapping("/form-inserir")
     public String formInserir(Model model) {
-
+        model.addAttribute("turmas", turmaRepository.findAll());
         model.addAttribute("aluno", new Aluno());
         return "aluno/form-inserir";
     }
@@ -66,6 +72,8 @@ public class AlunoController {
 
         // Adiciona o aluno no objeto model para ser alterado
         model.addAttribute("aluno", aluno);
+
+        model.addAttribute("turmas", turmaRepository.findAll());
 
         // Retorna o template aluno/alterar.html
         return "aluno/form-alterar";

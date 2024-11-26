@@ -44,5 +44,10 @@ public class Pessoa {
     // relação onetomany com o model Receita
     @OneToMany(mappedBy = "pessoa")
     private List<Receita> receitas;
+
+
+
+
+
 }
 
