@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" :class="{ 'theme-dark': dark }" x-data="data()" lang="pt">
+<head>
+  <title>Relatório de Receitas</title>
+  <div th:replace="~{/fragments/heads.html :: heads}"></div>
+</head>
+<body>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+  <div th:replace="~{/fragments/sidebar.html :: sidebar}"></div>
+  <div class="flex flex-col flex-1 w-full">
+    <div th:replace="~{/fragments/header.html :: heads}"></div>
+    <main class="h-full overflow-y-auto">
+      <div class="container px-6 mx-auto grid">
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Relatório de Receitas</h2>
+          </div>
+        </div>
+        <br>
+        <form th:action="@{/relatorio}" method="GET">  <!-- FORMULÁRIO INICIADO AQUI -->
+          <div class="row">
+            <div class="col-md-4">
+              <label for="dataInicial">Data Inicial:</label>
+              <input type="date" id="dataInicial" name="dataInicial" th:value="${dataInicial}" required>
+            </div>
+            <div class="col-md-4">
+              <label for="dataFinal">Data Final:</label>
+              <input type="date" id="dataFinal" name="dataFinal" th:value="${dataFinal}" required>
+            </div>
+            <div class="col-md-4">
+
+              <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+
+            </div>
+            <div class="col-md-4">
+              <a th:href="@{/relatorio/pdf(dataInicial=${dataInicial}, dataFinal=${dataFinal})}" class="btn btn-success">Gerar PDF</a>
+            </div>
+          </div>
+        </form>  <!-- FORMULÁRIO FECHADO AQUI -->
+
+        <div class="mt-4">
+          <div th:if="${receitas.empty}" class="alert alert-warning">Nenhuma receita encontrada para o período selecionado.</div>
+          <table class="w-full whitespace-no-wrap display table table-striped table-hover">
+            <thead>
+            <tr>
+              <th>Data do Pagamento</th>
+              <th>Comprador</th>
+              <th>Forma de Pagamento</th>
+              <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="receita : ${receitas}">
+              <td th:text="${#dates.format(receita.dataPagamento, 'yyyy-MM-dd')}"></td>
+              <td th:text="${receita.pessoa.nome}"></td>
+              <td th:text="${receita.formaPagamento}"></td>
+              <td th:text="${#numbers.formatCurrency(receita.valorReceita)}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+              <td th:text="${#numbers.formatCurrency(total)}"></td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div th:replace="~{/fragments/datatables.html :: datatables}"></div>
+</body>
+</html>
+
+
+
+

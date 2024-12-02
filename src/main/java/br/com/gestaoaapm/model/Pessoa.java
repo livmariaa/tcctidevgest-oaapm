@@ -42,7 +42,7 @@ public class Pessoa {
     private String endereco;
 
     // relação onetomany com o model Receita
-    @OneToMany(mappedBy = "pessoa")
+    @OneToMany(mappedBy = "pessoa", cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
     private List<Receita> receitas;
 
 

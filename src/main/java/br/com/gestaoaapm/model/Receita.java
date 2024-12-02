@@ -24,14 +24,14 @@ import java.util.Locale;
 public class Receita extends Financeiro{
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
     private Pessoa pessoa;
 
     private Double valorReceita;
 
 
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "produto_receita",
             joinColumns = @JoinColumn(name = "produto_id"),

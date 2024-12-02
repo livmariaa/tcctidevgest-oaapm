@@ -4,6 +4,7 @@ import br.com.gestaoaapm.model.Receita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
@@ -17,5 +18,8 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 
     @Query(value = "CALL SomarReceitasPorMes()", nativeQuery = true)
     List<Object[]> somarReceitasPorMes();
+
+   //usado no FinanceiroController
+    List<Receita> findByDataPagamentoBetween(Date dataInicial, Date dataFinal);
 
 }
